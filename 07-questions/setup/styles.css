@@ -206,6 +206,7 @@ Questions
   align-items: center;
   text-transform: capitalize;
   padding-bottom: 1rem;
+  font-weight:bold ;
 }
 .question-title p {
   margin-bottom: 0;
@@ -231,7 +232,8 @@ Questions
   margin-bottom: 0;
 }
 /* hide text */
-/* .question-text {
+
+.question-text {
   display: none;
 }
 .show-text .question-text {
@@ -245,4 +247,4 @@ Questions
 }
 .show-text .plus-icon {
   display: none;
-} */
+}

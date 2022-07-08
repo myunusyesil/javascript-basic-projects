@@ -1,5 +1,4 @@
-const menu = [
-  {
+const menu = [{
     id: 1,
     title: "buttermilk pancakes",
     category: "breakfast",
@@ -72,3 +71,73 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+const section = document.querySelector('.section-center');
+
+// doküman yüklenmesini dinliyoruz
+addEventListener('DOMContentLoaded', function () {
+  // show items, menu item'larını dinamik olarak listelemek için fonksiyon yazdık.
+  showMenuItems(menu);
+
+  /* 
+    filter items
+    filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
+    gönderdiğimiz paremetre ile eventlistener'a soktuk sonra ilgili elamanın dataset'ini bulduk
+    bu dataset bir değişkene atadık ve 
+    menu array'ini filter methoduna soktuk callback func parametre göndererek daha önce kategorisini
+    bulduğumuz tıklanan eleman ile menudeki kategorilerin aynı olup olmadığına baktık. 
+    aynı olanları menuCategory array'ine döndürdük kaydettik.
+
+    Tıkladığımız button all ise bütün menu array'indeki elemanları gösterdik
+    eğer başka bir category tıklandı ise sadece ilgili menuCategory'si arrayini gösterdik.
+  */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  // console.log(filterBtns);
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      let category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter(function (menuItem) {
+        if (menuItem.category === category) {
+          return menuItem;
+        }
+      });
+      console.log(menuCategory);
+      if (category =="all") {
+        showMenuItems(menu);
+      }
+      else {
+        showMenuItems(menuCategory);
+      }
+    })
+  });
+
+});
+
+/*  bir array'i map ederek değiştirdik ve içine istediğimiz değişkenleri koyduk.
+    map fonksiyonu bütün array'i dönüyor ve istediğimiz değişiklikleri geri döndürüyor.
+    yukarıda bu fonksiyonu çağırıyoruz.
+*/
+function showMenuItems(menuItems) {
+  let showMenu = menuItems.map(function (item) {
+    return `<article class="menu-item">
+      <img src=${item.img} class="photo" alt=${item.title}>
+      <div class="item-info">
+        <header>
+          <h4>${item.title}</h4>
+          <h4 class="price">$${item.price}</h4>
+        </header>
+        <p class="item-text">
+        ${item.desc}
+        </p>
+      </div>
+    </article>`
+  });
+
+  // döndürdüğümüz değeri string ifadeye çevirdik. 
+  // array elemanları arasında virgül olmaması için çift tırnak kullandık
+  showMenu = showMenu.join("");
+  // console.log(showMenuItems);
+  // seçtiğimiz değişkennin sectio (html elemanının içine) map fonksiyonundan döndürdüğümüz string değeri bastık.)
+  section.innerHTML = showMenu;
+}

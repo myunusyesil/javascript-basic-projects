@@ -1,3 +1,8 @@
+/* 
+  Bu zor bir projeydi. map ve reduce method'larını kullandık.
+  Ayrıca dinamik olarak html içeriğini kontrol ettik.
+*/
+
 const menu = [{
     id: 1,
     title: "buttermilk pancakes",
@@ -70,30 +75,27 @@ const menu = [{
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak",
+    category: "steak",
+    price: 36.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const section = document.querySelector('.section-center');
+const container = document.querySelector('.btn-container');
+
 
 // doküman yüklenmesini dinliyoruz
 addEventListener('DOMContentLoaded', function () {
   // show items, menu item'larını dinamik olarak listelemek için fonksiyon yazdık.
   showMenuItems(menu);
-
-  /* 
-    filter items
-    filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
-    gönderdiğimiz paremetre ile eventlistener'a soktuk sonra ilgili elamanın dataset'ini bulduk
-    bu dataset bir değişkene atadık ve 
-    menu array'ini filter methoduna soktuk callback func parametre göndererek daha önce kategorisini
-    bulduğumuz tıklanan eleman ile menudeki kategorilerin aynı olup olmadığına baktık. 
-    aynı olanları menuCategory array'ine döndürdük kaydettik.
-
-    Tıkladığımız button all ise bütün menu array'indeki elemanları gösterdik
-    eğer başka bir category tıklandı ise sadece ilgili menuCategory'si arrayini gösterdik.
-  */
+  showFilterButtons();
   const filterBtns = document.querySelectorAll('.filter-btn');
   // console.log(filterBtns);
-
   filterBtns.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       let category = e.currentTarget.dataset.id;
@@ -102,7 +104,7 @@ addEventListener('DOMContentLoaded', function () {
           return menuItem;
         }
       });
-      console.log(menuCategory);
+      // console.log(menuCategory);
       if (category =="all") {
         showMenuItems(menu);
       }
@@ -113,6 +115,18 @@ addEventListener('DOMContentLoaded', function () {
   });
 
 });
+  /* 
+    filter items
+    filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
+    gönderdiğimiz paremetre ile eventlistener'a soktuk sonra ilgili elamanın dataset'ini bulduk
+    bu dataset bir değişkene atadık ve 
+    menu array'ini filter methoduna soktuk callback func parametre göndererek daha önce kategorisini
+    bulduğumuz tıklanan eleman ile menudeki kategorilerin aynı olup olmadığına baktık. 
+    aynı olanları menuCategory array'ine döndürdük kaydettik.
+
+    Tıkladığımız button all ise bütün menu array'indeki elemanları gösterdik
+    eğer başka bir category tıklandı ise sadece ilgili menuCategory'sinde bulunan verileri gösterdik.
+  */
 
 /*  bir array'i map ederek değiştirdik ve içine istediğimiz değişkenleri koyduk.
     map fonksiyonu bütün array'i dönüyor ve istediğimiz değişiklikleri geri döndürüyor.
@@ -140,4 +154,22 @@ function showMenuItems(menuItems) {
   // console.log(showMenuItems);
   // seçtiğimiz değişkennin sectio (html elemanının içine) map fonksiyonundan döndürdüğümüz string değeri bastık.)
   section.innerHTML = showMenu;
+}
+
+function showFilterButtons() {
+  const categories = menu.reduce( function (values, items){
+    if (!values.includes(items.category)) {
+      values.push(items.category);
+    }
+    return values;
+  }, ["all"]);
+  // console.log(categories);
+
+  let showCategories = categories.map(function (category) {
+    return ` <button class="filter-btn" type="button" data-id=${category}>${category}</button>`
+  });
+  showCategories = showCategories.join("");
+  container.innerHTML = showCategories;
+
+  // console.log(showCategories);
 }

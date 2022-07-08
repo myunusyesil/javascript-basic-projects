@@ -1,6 +1,10 @@
 /* 
   Bu zor bir projeydi. map ve reduce method'larını kullandık.
   Ayrıca dinamik olarak html içeriğini kontrol ettik.
+  Dokümanda menu içeriğini gösterdikten sonra, kategori buttonlarını 
+  eklemek gerekiyor.
+  Her işlemden sonra adım adım console.log koyarak 
+  yapılan değişiklikleri valide etmek faydalı oldu.
 */
 
 const menu = [{

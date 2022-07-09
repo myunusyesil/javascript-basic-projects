@@ -94,7 +94,6 @@ const menu = [{
 const section = document.querySelector('.section-center');
 const container = document.querySelector('.btn-container');
 
-
 // doküman yüklenmesini dinliyoruz
 addEventListener('DOMContentLoaded', function () {
   // show items, menu item'larını dinamik olarak listelemek için fonksiyon yazdık.
@@ -104,7 +103,7 @@ addEventListener('DOMContentLoaded', function () {
 
   // gösterilen elemanların dinamik olarak kategori buttonlarını gösteriyoruz
   showFilterButtons();
-  
+
   /* 
   filter items
   filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
@@ -140,10 +139,7 @@ addEventListener('DOMContentLoaded', function () {
       }
     })
   });
-
 });
-
-
 
 /*  bir array'i map ederek değiştirdik ve içine istediğimiz değişkenleri koyduk.
     map fonksiyonu bütün array'i dönüyor ve istediğimiz değişiklikleri geri döndürüyor.

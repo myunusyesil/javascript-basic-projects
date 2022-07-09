@@ -1,12 +1,14 @@
 /* 
   Bu zor bir projeydi. map ve reduce method'larını kullandık.
-  Ayrıca dinamik olarak html içeriğini kontrol ettik.
+  Ayrıca dinamik olarak html içeriğini değiştirdik.
+
   Dokümanda menu içeriğini gösterdikten sonra, kategori buttonlarını 
   eklemek gerekiyor.
   Her işlemden sonra adım adım console.log koyarak 
   yapılan değişiklikleri valide etmek faydalı oldu.
 */
 
+// data array
 const menu = [{
     id: 1,
     title: "buttermilk pancakes",
@@ -96,8 +98,23 @@ const container = document.querySelector('.btn-container');
 // doküman yüklenmesini dinliyoruz
 addEventListener('DOMContentLoaded', function () {
   // show items, menu item'larını dinamik olarak listelemek için fonksiyon yazdık.
+  // map methoduna array gönderdik.
+  
   showMenuItems(menu);
+
+  // gösterilen elemanların dinamik olarak kategori buttonlarını gösteriyoruz
   showFilterButtons();
+  
+  /* 
+  filter items
+  filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
+  gönderdiğimiz paremetre ile eventlistener'a soktuk sonra ilgili elamanın dataset'ini bulduk
+  bu dataset category değişkenine atadık ve 
+  menu array'ini filter methoduna soktuk callback func parametre göndererek daha önce kategorisini
+  bulduğumuz tıklanan eleman ile menudeki kategorilerin aynı olup olmadığına baktık. 
+  aynı olanları menuCategory array'ine döndürdük kaydettik.
+  */
+
   const filterBtns = document.querySelectorAll('.filter-btn');
   // console.log(filterBtns);
   filterBtns.forEach(function (btn) {
@@ -108,6 +125,12 @@ addEventListener('DOMContentLoaded', function () {
           return menuItem;
         }
       });
+
+    /*
+        Tıkladığımız button 'all' ise bütün menu array'indeki elemanları gösterdik
+        eğer başka bir category tıklandı ise sadece ilgili menuCategory'sinde bulunan verileri gösterdik.
+    */
+
       // console.log(menuCategory);
       if (category =="all") {
         showMenuItems(menu);
@@ -119,18 +142,8 @@ addEventListener('DOMContentLoaded', function () {
   });
 
 });
-  /* 
-    filter items
-    filterbtn'larını seçtik ve bir array'e atadık, daha sonra foreach ile hepsini döndük ve 
-    gönderdiğimiz paremetre ile eventlistener'a soktuk sonra ilgili elamanın dataset'ini bulduk
-    bu dataset bir değişkene atadık ve 
-    menu array'ini filter methoduna soktuk callback func parametre göndererek daha önce kategorisini
-    bulduğumuz tıklanan eleman ile menudeki kategorilerin aynı olup olmadığına baktık. 
-    aynı olanları menuCategory array'ine döndürdük kaydettik.
 
-    Tıkladığımız button all ise bütün menu array'indeki elemanları gösterdik
-    eğer başka bir category tıklandı ise sadece ilgili menuCategory'sinde bulunan verileri gösterdik.
-  */
+
 
 /*  bir array'i map ederek değiştirdik ve içine istediğimiz değişkenleri koyduk.
     map fonksiyonu bütün array'i dönüyor ve istediğimiz değişiklikleri geri döndürüyor.

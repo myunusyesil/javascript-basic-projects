@@ -129,7 +129,6 @@ addEventListener('DOMContentLoaded', function () {
         Tıkladığımız button 'all' ise bütün menu array'indeki elemanları gösterdik
         eğer başka bir category tıklandı ise sadece ilgili menuCategory'sinde bulunan verileri gösterdik.
     */
-
       // console.log(menuCategory);
       if (category =="all") {
         showMenuItems(menu);

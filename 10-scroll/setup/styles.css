@@ -213,7 +213,7 @@ nav {
 .fixed-nav .links a:hover {
   color: var(--clr-secondary);
 }
-/* .fixed-nav .links-container {
+/* .fixed-nav .link-container {
   height: auto !important;
 } */
 .nav-header {
@@ -235,7 +235,7 @@ nav {
 .logo {
   height: 50px;
 }
-.links-container {
+.link-container {
   height: 0;
   overflow: hidden;
   transition: var(--transition);
@@ -275,7 +275,7 @@ nav {
   .nav-toggle {
     display: none;
   }
-  .links-container {
+  .link-container {
     height: auto !important;
   }
   .links {
@@ -365,7 +365,6 @@ footer p {
   border-radius: var(--radius);
   color: var(--clr-white);
   animation: bounce 2s ease-in-out infinite;
-
   visibility: hidden;
   z-index: -100;
 }

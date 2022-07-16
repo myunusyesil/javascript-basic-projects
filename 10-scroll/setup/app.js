@@ -35,7 +35,7 @@ toggleBtn.addEventListener('click', function() {
         const navBar = document.getElementById("nav");
         const topLink = document.querySelector(".top-link");
         let navHeight = navBar.getBoundingClientRect().height;
-        console.log(navBar, navHeight);
+        // console.log(navBar, navHeight);
         // console.log(pageYOffset); 
         let positionScroll = window.pageYOffset;
         if ( positionScroll > navHeight  ) {
@@ -55,3 +55,25 @@ toggleBtn.addEventListener('click', function() {
 
 // ********** smooth scroll ************
 // select links
+
+    const scrollLinks = document.querySelectorAll('.scroll-link');
+    console.log(scrollLinks);
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            let linkId = e.currentTarget.getAttribute('href').slice(1);
+            console.log(linkId);
+
+            let elementPos = document.getElementById(linkId).getBoundingClientRect().top + window.scrollY;
+            console.log(elementPos);
+            const navBar = document.getElementById("nav");
+            const navBarHeight = navBar.getBoundingClientRect().height;
+            console.log(navBarHeight);
+            let scrollPos = elementPos - navBarHeight;
+
+            window.scroll({
+                left: 0,
+                top: scrollPos
+            });
+     }); 
+});

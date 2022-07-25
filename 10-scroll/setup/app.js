@@ -27,6 +27,7 @@ toggleBtn.addEventListener('click', function() {
     } else {
         linkContainer.style.height = 0 ;
     }
+
 });
 
 // ********** fixed navbar ************
@@ -62,7 +63,7 @@ toggleBtn.addEventListener('click', function() {
         link.addEventListener('click', function (e) {
             e.preventDefault();
             let linkId = e.currentTarget.getAttribute('href').slice(1);
-            console.log(linkId);
+            // console.log(linkId);
 
             let elementPos = document.getElementById(linkId).getBoundingClientRect().top + window.scrollY;
             console.log(elementPos);
@@ -71,9 +72,20 @@ toggleBtn.addEventListener('click', function() {
             console.log(navBarHeight);
             let scrollPos = elementPos - navBarHeight;
 
+            let fixedNav = navBar.classList.contains('fixed-nav')
+            if (!fixedNav) {
+                scrollPos = scrollPos - 82;
+            }
+            const linksHeight = links.getBoundingClientRect().height;
+            if (linksHeight > 82) {
+                scrollPos = scrollPos + linksHeight;
+                // console.log(scrollPos)
+            }
+
             window.scroll({
                 left: 0,
                 top: scrollPos
             });
+            linkContainer.style.height = 0 ;
      }); 
 });

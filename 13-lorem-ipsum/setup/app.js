@@ -11,3 +11,32 @@ I just told you! You've killed me! Fry! Quit doing the right thing, you jerk! Mi
   `Man braid celiac synth freegan readymade, pitchfork fam salvia waistcoat lomo bitters gentrify four loko. Pitchfork semiotics post-ironic vegan. Tofu meditation microdosing hashtag semiotics venmo. Flexitarian vape tilde taiyaki. Prism poutine farm-to-table, messenger bag vegan taxidermy tattooed sartorial squid jean shorts fixie selvage trust fund vape.`,
   `Rutters Plate Fleet boom chandler Brethren of the Coast handsomely lookout marooned brigantine knave. Buccaneer gangway jack rum loot spyglass line Jack Tar fore gaff. Gaff topmast scuttle ballast swab draught measured fer yer chains dance the hempen jig Chain Shot yardarm.`,
 ];
+
+const btn = document.querySelector('.btn');
+const paragraph = document.getElementById('amount');
+const lorem = document.querySelector('.lorem-text');
+
+btn.addEventListener ('click', function(e) {
+  e.preventDefault();
+  let count = paragraph.value;
+  // string to integer
+  
+  // console.log(count, typeof count);
+  var randomNumber = Math.floor(Math.random()*text.length);
+  console.log(randomNumber);
+  if (count <= 0 || count > text.length  || count == NaN) {
+    let randomContent = text[randomNumber];
+    console.log(count, typeof count)
+    count = parseInt(count);
+    lorem.innerHTML = `<p class="result"> ${randomContent}</p>`
+  }
+  else {let content = text.slice(0,count)
+
+    // const newC = content.join("");
+    // console.log(newC);
+    
+    content = content.map(function (paragraph) {
+      return `<p class="result"> ${paragraph}</p>`
+    }).join("")
+    lorem.innerHTML = content;}
+})

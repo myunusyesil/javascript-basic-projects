@@ -14,6 +14,7 @@ let editID = "";
 
 // ****** EVENT LISTENERS **********
 form.addEventListener('submit', addItem);
+clearBtn.addEventListener('click', clearItems);
 
 // ****** FUNCTIONS **********
 function addItem (e) {
@@ -54,7 +55,7 @@ function addItem (e) {
         showAlert("Please submit an item","danger");
     }
 }
-
+// showAlert 
 function showAlert (text, type) {
     alert.innerHTML = text;
     alert.classList.add("alert-"+`${type}`);
@@ -63,6 +64,16 @@ function showAlert (text, type) {
         alert.classList.remove("alert-"+`${type}`);
     },1000)
 }
+
+function clearItems () {
+    let items = document.querySelectorAll('.grocery-item');
+    console.log(items);
+    items.forEach(function(item) {
+        list.removeChild(item);
+    })
+    container.classList.remove('show-container');
+    showAlert("All items cleared","danger"); 
+} 
 
 // ****** LOCAL STORAGE **********
 

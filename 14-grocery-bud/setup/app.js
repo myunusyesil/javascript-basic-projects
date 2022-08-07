@@ -42,6 +42,20 @@ function addItem (e) {
         </button>
         </div>`
         list.appendChild(element);
+        // selecting editing and delete btns
+        // deletin item function
+        const deleteBtn = element.querySelector(".delete-btn");
+        const editBtn = element.querySelector(".edit-btn");
+        deleteBtn.addEventListener('click', function (e) {
+            const item = e.currentTarget.parentElement.parentElement;
+            list.removeChild(item);
+            if ( list.children.length === 0) {
+                container.classList.remove('show-container');
+            }
+            // console.log(item);
+        });
+        // console.log(deleteBtn,editBtn);
+
         container.classList.add('show-container');
         showAlert(`${value}`+" added succesfully", "success");
     }
@@ -74,6 +88,8 @@ function clearItems () {
     container.classList.remove('show-container');
     showAlert("All items cleared","danger"); 
 } 
+
+
 
 // ****** LOCAL STORAGE **********
 

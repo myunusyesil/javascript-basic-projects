@@ -49,6 +49,9 @@ function addItem (e) {
         deleteBtn.addEventListener('click', function (e) {
             const item = e.currentTarget.parentElement.parentElement;
             list.removeChild(item);
+            let title = item.querySelector('.title').innerHTML;
+            console.log(title);
+            showAlert(`${title}`+" has deleted from the list", "danger");
             if ( list.children.length === 0) {
                 container.classList.remove('show-container');
             }

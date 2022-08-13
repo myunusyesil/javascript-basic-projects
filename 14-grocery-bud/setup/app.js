@@ -42,25 +42,21 @@ function addItem (e) {
         </button>
         </div>`
         list.appendChild(element);
-        // selecting editing and delete btns
-        // deletin item function
+        
+        // set back to default
+        setBackToDefault();
+        // add to local storage
+        addToLocalStorage(id, value);
+
+        // selecting editing and delete btns within the element
+        // deleting item function
         const deleteBtn = element.querySelector(".delete-btn");
         const editBtn = element.querySelector(".edit-btn");
-        deleteBtn.addEventListener('click', function (e) {
-            const item = e.currentTarget.parentElement.parentElement;
-            list.removeChild(item);
-            let title = item.querySelector('.title').innerHTML;
-            console.log(title);
-            showAlert(`${title}`+" has deleted from the list", "danger");
-            if ( list.children.length === 0) {
-                container.classList.remove('show-container');
-            }
-            // console.log(item);
-        });
-        // console.log(deleteBtn,editBtn);
+        deleteBtn.addEventListener('click', deleteItem) 
+        editBtn.addEventListener('click', editItem)
 
         container.classList.add('show-container');
-        showAlert(`${value}`+" added succesfully", "success");
+        showAlert(`${value} added succesfully`, "success");
     }
     // editing item
     else if (value && editFlag) {
@@ -75,25 +71,56 @@ function addItem (e) {
 // showAlert 
 function showAlert (text, type) {
     alert.innerHTML = text;
-    alert.classList.add("alert-"+`${type}`);
+    alert.classList.add(`alert-${type}`);
     setTimeout(function(){
         alert.innerHTML = "";
-        alert.classList.remove("alert-"+`${type}`);
+        alert.classList.remove(`alert-${type}`);
     },1000)
 }
-
+// clear all items
 function clearItems () {
     let items = document.querySelectorAll('.grocery-item');
-    console.log(items);
+    // console.log(items);
     items.forEach(function(item) {
         list.removeChild(item);
     })
     container.classList.remove('show-container');
     showAlert("All items cleared","danger"); 
+    setBackToDefault();
+    // remove from local storage
+    // localStorage.removeItem('list');
 } 
+// deleting items
+function deleteItem (e) {
+    const item = e.currentTarget.parentElement.parentElement;
+            list.removeChild(item);
+            let title = item.querySelector('.title').innerHTML;
+            console.log(title);
+            showAlert(`${title} has deleted from the list`, "danger");
+            if ( list.children.length === 0) {
+                container.classList.remove('show-container');
+            }
+            // ----------------------------- Buradayım
+            
+}
+// editing items
+function editItem (e) {
+    console.log ("editing items")
+}
 
-
+// set back to default
+function setBackToDefault() {
+    grocery.value = '';
+    editFlag = false;
+    editID = '';
+    submitBtn.innerText = 'submit';
+}
 
 // ****** LOCAL STORAGE **********
+// add item to local storage
+function addToLocalStorage(id, value) {
+    console.log("item added to local storage");
+}
+
 
 // ****** SETUP ITEMS **********

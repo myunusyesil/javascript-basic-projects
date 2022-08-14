@@ -28,7 +28,7 @@ function addItem (e) {
         // console.log(id);
         const element = document.createElement("article");
         element.classList.add("grocery-item")
-        const attr = document.createAttribute("dataset-id");
+        const attr = document.createAttribute("data-id");
         attr.value = id;
         element.setAttributeNode(attr);
         element.innerHTML = `
@@ -47,7 +47,6 @@ function addItem (e) {
         setBackToDefault();
         // add to local storage
         addToLocalStorage(id, value);
-
         // selecting editing and delete btns within the element
         // deleting item function
         const deleteBtn = element.querySelector(".delete-btn");
@@ -60,7 +59,10 @@ function addItem (e) {
     }
     // editing item
     else if (value && editFlag) {
-        console.log("editing item") 
+        editElement.innerHTML = value;
+        showAlert("value changed","success");
+        // editLocalStorage(editID,value);
+        setBackToDefault();
     }
     // no value submitted
     else {
@@ -88,24 +90,38 @@ function clearItems () {
     showAlert("All items cleared","danger"); 
     setBackToDefault();
     // remove from local storage
-    // localStorage.removeItem('list');
+    localStorage.removeItem('list');
 } 
 // deleting items
 function deleteItem (e) {
-    const item = e.currentTarget.parentElement.parentElement;
-            list.removeChild(item);
-            let title = item.querySelector('.title').innerHTML;
-            console.log(title);
-            showAlert(`${title} has deleted from the list`, "danger");
-            if ( list.children.length === 0) {
-                container.classList.remove('show-container');
-            }
-            // ----------------------------- Buradayım
-            
+    const element = e.currentTarget.parentElement.parentElement;
+    console.log(element);
+    const id = element.dataset.id;
+    console.log(id);
+    list.removeChild(element);
+    let title = element.querySelector('.title').innerHTML;
+    console.log(title);
+    showAlert(`${title} has deleted from the list`, "danger");
+        if ( list.children.length === 0) {
+            container.classList.remove('show-container');
+        }
+        removeFromLocalStorage(id);
+        setBackToDefault();
+        // ----------------------------- Buradayım
+                
 }
 // editing items
 function editItem (e) {
-    console.log ("editing items")
+    const element = e.currentTarget.parentElement.parentElement;
+    // set edit item
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+    // set form value
+    grocery.value = editElement.innerHTML;
+    
+    editID = element.dataset.id;
+    console.log(editID);
+    editFlag = true;
+    submitBtn.innerText = "edit";
 }
 
 // set back to default
@@ -116,11 +132,47 @@ function setBackToDefault() {
     submitBtn.innerText = 'submit';
 }
 
+
 // ****** LOCAL STORAGE **********
 // add item to local storage
 function addToLocalStorage(id, value) {
-    console.log("item added to local storage");
+    let item = {id, value}
+    let items = getLocalStorage ();
+
+    items.push(item);
+    localStorage.setItem('list', JSON.stringify(items));
+    // console.log("item added to local storage");
 }
+
+function removeFromLocalStorage(id) {
+    let items = getLocalStorage();
+    
+    items = items.filter( function(item) {
+        if (item.id !== id) {
+        return item;
+        }
+        
+    })
+    console.log (items);
+    localStorage.setItem('list', JSON.stringify(items));
+};
+function editLocalStorage (editID, value) {};
+function getLocalStorage () {
+    return (localStorage.getItem('list'))? 
+    JSON.parse(localStorage.getItem('list')):[];
+}
+
+// localStorage API
+// setItem
+// getItem
+// removeItem
+// save as strings
+
+// localStorage.setItem('orange', JSON.stringify(["item1","item1"]));
+// const oranges =JSON.parse(localStorage.getItem('orange'));
+// console.log(oranges);
+// localStorage.removeItem('orange');
+
 
 
 // ****** SETUP ITEMS **********

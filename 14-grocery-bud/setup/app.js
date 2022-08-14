@@ -26,13 +26,11 @@ function addItem (e) {
     if (value && !editFlag) {
         createListItem(id, value);
         // set back to default
-        setBackToDefault();
+    
         // add to local storage
         addToLocalStorage(id, value);
-        // selecting editing and delete btns within the element
-        // deleting item function
-
         showAlert(`${value} added succesfully`, "success");
+        setBackToDefault();
     }
     // editing item
     else if (value && editFlag) {
@@ -66,6 +64,8 @@ function createListItem(id, value) {
     </button>
     </div>`
     list.appendChild(element);
+    // selecting editing and delete btns within the element
+    // deleting item function
     const deleteBtn = element.querySelector(".delete-btn");
     const editBtn = element.querySelector(".edit-btn");
     deleteBtn.addEventListener('click', deleteItem) 
@@ -73,7 +73,6 @@ function createListItem(id, value) {
 
     container.classList.add('show-container');
 }
-
 
 // showAlert 
 function showAlert (text, type) {
@@ -111,8 +110,7 @@ function deleteItem (e) {
             container.classList.remove('show-container');
         }
         removeFromLocalStorage(id);
-        setBackToDefault();
-                
+        setBackToDefault();            
 }
 // editing items
 function editItem (e) {
@@ -135,7 +133,6 @@ function setBackToDefault() {
     editID = '';
     submitBtn.innerText = 'submit';
 }
-
 
 // ****** LOCAL STORAGE **********
 // add item to local storage
